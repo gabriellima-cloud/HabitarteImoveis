@@ -1,0 +1,185 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-blue: #0a3f98;
+  --color-brand-blue-dark: #061a3a;
+  --color-brand-red: #e21b2d;
+  --color-brand-red-dark: #b30f1e;
+  --color-brand-red-light: #ff6872;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #10203c;
+  --card: #ffffff;
+  --card-foreground: #10203c;
+  --primary: #0a3f98;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f7fb;
+  --secondary-foreground: #10203c;
+  --muted: #f5f7fb;
+  --muted-foreground: #64748b;
+  --border: #e4e9f1;
+  --input: #e4e9f1;
+  --ring: #e21b2d;
+  --shadow-soft: 0 10px 30px rgba(16, 32, 60, 0.06);
+  --shadow-lift: 0 18px 45px rgba(16, 32, 60, 0.14);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: rgba(226, 27, 45, 0.18);
+    color: var(--foreground);
+  }
+}
+
+@layer components {
+  .site-shell {
+    position: relative;
+    isolation: isolate;
+  }
+  .brand-logo {
+    filter: none;
+    transition: transform 300ms ease;
+  }
+  .brand-logo:hover {
+    transform: translateY(-1px);
+  }
+  .brand-mark {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  }
+  .nav-link {
+    position: relative;
+    transition: color 180ms ease;
+  }
+  .nav-link:hover {
+    color: #e21b2d;
+  }
+  .nav-link::after {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: #e21b2d;
+    content: "";
+    transition: width 180ms ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  .eyebrow {
+    color: #e21b2d;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .gold-rule {
+    display: block;
+    height: 2px;
+    width: 44px;
+    background: #e21b2d;
+  }
+  .property-card {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes heroImage {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.hero > img {
+  animation: heroImage 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (max-width: 640px) {
+  .hero > img {
+    object-position: 62% center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+@utility transition-smooth {
+  transition: all 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
